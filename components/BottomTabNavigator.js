@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
 
 import HomeScreen from "../views/Home";
+import GoalScreen from "../views/Goals";
 
 import { Feather } from "@expo/vector-icons";
 
@@ -34,7 +35,7 @@ export default function BottomTabNavigator({ navigation }) {
       />
       <BottomTab.Screen
         name="Goals"
-        component={HomeScreen}
+        component={GoalScreen}
         options={{
           tabBarLabel: "Goals",
           tabBarIcon: ({ color, size }) => (
