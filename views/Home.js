@@ -7,7 +7,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import TodayGoals from "../components/TodayGoals";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [resources, setResources] = useState({});
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function Home() {
             <Text
               style={{ margin: 10, textDecorationLine: "underline" }}
               onPress={() => {
-                item.link != null &&
+                if (item.link) {
                   Linking.canOpenURL(item.link).then((supported) => {
                     if (supported) {
                       Linking.openURL(item.link);
@@ -48,6 +48,9 @@ export default function Home() {
                       console.log("Don't know how to open URI: " + item.link);
                     }
                   });
+                } else {
+                  navigation.push("What is flu?");
+                }
               }}
             >
               {item.title}

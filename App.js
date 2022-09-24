@@ -6,6 +6,8 @@ import LoginScreen from "./views/Login";
 import BottomTabNavigator from "./components/BottomTabNavigator";
 import "./global";
 import Staff from "./views/Staff";
+import Story1 from "./views/Story1";
+import Story2 from "./views/Story2";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +25,8 @@ export default function App() {
           />
           <Stack.Screen name="Root" component={BottomTabNavigator} />
           <Stack.Screen name="Staff" component={Staff} />
+          <Stack.Screen name="What is flu?" component={Story1} />
+          <Stack.Screen name="What is virus?" component={Story2} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
