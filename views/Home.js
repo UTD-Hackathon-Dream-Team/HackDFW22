@@ -7,26 +7,30 @@ export default function Home() {
   const [goals, setGoals] = useState({});
 
   useEffect(() => {
-    // Update the document title using the browser API
     async function getGoals() {
-      console.log(global.config.patientId);
+      var today = new Date().toJSON().slice(0, 10);
       const docRef = doc(db, "patient", global.config.patientId);
       const docSnap = await getDoc(docRef);
-
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        console.log(docSnap.data());
+        var patientGoals = await docSnap.data().goals;
+        const results = patientGoals.filter((obj) => {
+          var goalDate = new Date(obj.date.seconds * 1000)
+            .toJSON()
+            .slice(0, 10);
+          return goalDate === today;
+        });
+        console.log(results);
+        setGoals(results);
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
       }
 
-      const goalList = [
-        { item: "Do something 1" },
-        { item: "Do something 2" },
-        { item: "Do something 3" },
-      ];
-      setGoals(goalList);
+      // const goalList = [
+      //   { item: "Do something 1" },
+      //   { item: "Do something 2" },
+      //   { item: "Do something 3" },
+      // ];
 
       const resourceList = [
         { item: "Resource 1" },
@@ -44,7 +48,8 @@ export default function Home() {
         <Text>Today's Goals</Text>
         <FlatList
           data={goals}
-          renderItem={({ item }) => <Checkbox>{item.item}</Checkbox>}
+          style={{ backgroundColor: "pink", height: 150, flexGrow: 0 }}
+          renderItem={({ item }) => <Checkbox>{item.goal}</Checkbox>}
         />
         <Text>Information</Text>
         {/* <FlatList
