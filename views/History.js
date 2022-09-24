@@ -14,7 +14,7 @@ import { db } from "../util/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import StaffList from "../components/StaffList";
 
-export default function History() {
+export default function History({navigation}) {
   const [history, setHistory] = useState(null);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function History() {
       <Heading size="md" style={{ padding: 10 }}>
         Staff History
       </Heading>
-      {history ? <StaffList history={history} /> : <Spinner size="lg" />}
+      {history ? <StaffList history={history} navigation={navigation}/> : <Spinner size="lg" />}
     </Container>
   );
 }
