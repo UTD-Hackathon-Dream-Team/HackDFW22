@@ -71,7 +71,7 @@ const Goals = () => {
     <View>
       <View style={styles.container}>
         <Text style={styles.title}>Today</Text>
-        <Text>where today's will go</Text>
+        <CheckList goals={todays} setGoals={setTodays}></CheckList>
       </View>
       <View style={styles.container}>
         <Text style={styles.title}>Upcoming Goals</Text>
