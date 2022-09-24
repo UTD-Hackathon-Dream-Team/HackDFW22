@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Center, Text, FlatList, View, Heading } from "native-base";
+import { Container, Text, FlatList, View, Heading, Badge, Flex } from "native-base";
 import { Linking } from "react-native";
 import { db } from "../util/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -28,30 +28,35 @@ export default function Home() {
 
   return (
     <Container p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
-      <Heading my="2">Today's Goals</Heading>
+      <Heading mt="2">Today's Goals</Heading>
       <TodayGoals />
-      <Heading my="2">Information</Heading>
-      <FlatList
-        style={{ backgroundColor: "pink", height: 250, flexGrow: 0 }}
+      <Heading mt="3">Information</Heading>
+      
+
+      <FlatList p="5"
+        style={{ backgroundColor: "#dcc6c4", height: 200, width: 275, flexGrow: 0}}
         data={resources}
         renderItem={({ item }) => (
           <View>
-            {!item.watched && <Text style={{ color: "red" }}>NEW</Text>}
-            <Text
-              style={{ margin: 10, textDecorationLine: "underline" }}
-              onPress={() => {
-                item.link != null &&
-                  Linking.canOpenURL(item.link).then((supported) => {
-                    if (supported) {
-                      Linking.openURL(item.link);
-                    } else {
-                      console.log("Don't know how to open URI: " + item.link);
-                    }
-                  });
-              }}
-            >
-              {item.title}
-            </Text>
+             <Flex direction="row">
+             {!item.watched && <Badge colorScheme="success">NEW</Badge>}
+              <Text
+                style={{ margin: 10, textDecorationLine: "underline" }}
+                onPress={() => {
+                  item.link != null &&
+                    Linking.canOpenURL(item.link).then((supported) => {
+                      if (supported) {
+                        Linking.openURL(item.link);
+                      } else {
+                        console.log("Don't know how to open URI: " + item.link);
+                      }
+                    });
+                }}
+              >
+                {item.title}
+              </Text>
+             </Flex>
+           
           </View>
         )}
       />
