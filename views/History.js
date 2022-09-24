@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "react-native-paper";
 import {
-  Container,
+  View,
   VStack,
   Heading,
   Text,
@@ -68,10 +68,8 @@ export default function History({ navigation }) {
   }, []);
 
   return (
-    <Container>
-      <Heading size="md" style={{ padding: 10 }}>
-        Current Staff
-      </Heading>
+    <View p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
+      <Heading my="2">Current Staff</Heading>
       <Center>
         {currentStaff ? (
           <Card
@@ -123,6 +121,6 @@ export default function History({ navigation }) {
       ) : (
         <Spinner size="lg" />
       )}
-    </Container>
+    </View>
   );
 }
