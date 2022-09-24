@@ -39,11 +39,11 @@ const Goals = () => {
 
   return (
     <View p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
-      <View style={styles.container}>
+
         <Heading my="2">Today</Heading>
         <DayGoals today={today}></DayGoals>
-      </View>
-      <View style={styles.container}>
+
+
       <Heading my="2">Upcoming Goals</Heading>
         {tomorrows.map((key, i) => (
           <Expansion 
@@ -52,8 +52,7 @@ const Goals = () => {
             child={() => <DayGoals today={key}></DayGoals>}
           ></Expansion>
         ))}
-      </View>
-      <View style={styles.container}>
+
       <Heading my="2">Past Goals</Heading>
         {yesterdays.map((key, i) => (
           <Expansion
@@ -62,7 +61,6 @@ const Goals = () => {
             child={() => <DayGoals today={key}></DayGoals>}
           ></Expansion>
         ))}
-      </View>
     </View>
   );
 };
