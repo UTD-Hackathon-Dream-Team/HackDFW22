@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "react-native-paper";
 import {
   Container,
@@ -8,10 +8,31 @@ import {
   Center,
   HStack,
   Avatar,
+  Spinner,
 } from "native-base";
+import { db } from "../util/firebase";
+import { doc, getDoc } from "firebase/firestore";
 import StaffList from "../components/StaffList";
 
 export default function History() {
+  const [history, setHistory] = useState(null);
+
+  useEffect(() => {
+    async function getHistory() {
+      const docRef = doc(db, "patient", global.config.patientId);
+      let docSnap = await getDoc(docRef);
+      docSnap = docSnap.get("visits");
+      for (let visit of docSnap) {
+        const staff = await (
+          await getDoc(doc(db, "staff", visit.staffId))
+        ).data();
+        visit.staff = staff;
+      }
+      setHistory(docSnap);
+    }
+    getHistory();
+  }, []);
+
   return (
     <Container>
       <Heading size="md" style={{ padding: 10 }}>
@@ -36,7 +57,7 @@ export default function History() {
       <Heading size="md" style={{ padding: 10 }}>
         Staff History
       </Heading>
-      <StaffList />
+      {history ? <StaffList history={history} /> : <Spinner size="lg" />}
     </Container>
   );
 }
