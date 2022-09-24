@@ -6,17 +6,16 @@ import Expansion from "../components/Expansion";
 
 const Goals = () => {
   let testlist = ["test", "test2"];
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(
+    testlist.map((item) => ({ text: item, completed: false }))
+  );
 
-  useEffect(() => {
-    setTasks(testlist.map((item) => ({ text: item, completed: false })));
-  });
   return (
     <View>
-      <Container style={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.title}>Today</Text>
         <CheckList tasks={tasks} setTasks={() => setTasks}></CheckList>
-      </Container>
+      </View>
       <View style={styles.container}>
         <Text style={styles.title}>Upcoming Goals</Text>
         <CheckList tasks={tasks} setTasks={() => setTasks}></CheckList>
