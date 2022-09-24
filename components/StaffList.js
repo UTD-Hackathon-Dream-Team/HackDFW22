@@ -16,7 +16,6 @@ export default function StaffList({ history, navigation }) {
     <Card
       style={{ marginBottom: 20 }}
       onPress={() => {
-        console.log(item.staff);
         navigation.push("Staff", { 
           name: item.staff.name, 
           job: item.staff.job,
@@ -24,6 +23,9 @@ export default function StaffList({ history, navigation }) {
           funfact: item.staff.funfact, 
           image: item.staff.image, 
           time: item.timein.seconds,  
+          history: history.filter(function (entry) {
+            return entry.staffId == item.staffId;
+          })
           });
       }}
     >

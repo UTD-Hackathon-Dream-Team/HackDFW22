@@ -1,10 +1,9 @@
 import React from "react";
-import { Text, View, Image } from "react-native";
-import { Avatar, usePropsResolution } from "native-base";
+import { Text, View } from "react-native";
+import { Avatar, FlatList } from "native-base";
 import { Card } from "react-native-paper";
 
 export default function Staff({ route }) {
-console.log(route.params);
   return (
     <View>
       <Text>{route.params.name}</Text>
@@ -19,7 +18,14 @@ console.log(route.params);
       <Text>{route.params.funfact}</Text>
       <Text>Attending History</Text>
       <Card>
-        <Card.Title title="Test Title" subtitle={route.params.time} />
+        <FlatList 
+            data= {route.params.history} 
+            renderItem={({ item }) => (
+                <View>
+                    <Text>Time in: {item.timein.seconds}</Text>
+                    <Text>Time out: {item.timeout.seconds}</Text>
+                </View>
+            )}/>
       </Card>
       <Text>Procedures Performed</Text>
       <Card>
