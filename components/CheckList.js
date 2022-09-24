@@ -4,8 +4,28 @@ import { db } from "../util/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-const CheckList = ({ goals, setGoals }) => {
-  var today = new Date().toJSON().slice(0, 10);
+const TodayGoals = ({ today }) => {
+  const [goals, setGoals] = useState({});
+  useEffect(() => {
+    async function getGoals() {
+      const docRef = doc(db, "patient", global.config.patientId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        var patientGoals = await docSnap.data().goals;
+        const results = patientGoals.filter((obj) => {
+          var goalDate = new Date(obj.date.seconds * 1000)
+            .toJSON()
+            .slice(0, 10);
+          return goalDate === today;
+        });
+        setGoals(results);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }
+    getGoals();
+  }, []);
 
   async function completeGoal(goalID) {
     console.log("Updating", goalID);
@@ -25,6 +45,7 @@ const CheckList = ({ goals, setGoals }) => {
     });
     setGoals(results);
   }
+
   return (
     <FlatList
       data={goals}
@@ -44,4 +65,4 @@ const CheckList = ({ goals, setGoals }) => {
   );
 };
 
-export default CheckList;
+export default TodayGoals;
