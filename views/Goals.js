@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CheckList from "../components/CheckList";
+import DayGoals from "../components/DayGoals";
 import { StyleSheet, Text, View } from "react-native";
 import Expansion from "../components/Expansion";
 import { db } from "../util/firebase";
@@ -40,7 +40,7 @@ const Goals = () => {
     <View>
       <View style={styles.container}>
         <Text style={styles.title}>Today</Text>
-        <CheckList today={today}></CheckList>
+        <DayGoals today={today}></DayGoals>
       </View>
       <View style={styles.container}>
         <Text style={styles.title}>Upcoming Goals</Text>
@@ -48,7 +48,7 @@ const Goals = () => {
           <Expansion
             key={key}
             title={key}
-            child={() => <CheckList today={key}></CheckList>}
+            child={() => <DayGoals today={key}></DayGoals>}
           ></Expansion>
         ))}
       </View>
@@ -58,7 +58,7 @@ const Goals = () => {
           <Expansion
             key={key}
             title={key}
-            child={() => <CheckList today={key}></CheckList>}
+            child={() => <DayGoals today={key}></DayGoals>}
           ></Expansion>
         ))}
       </View>

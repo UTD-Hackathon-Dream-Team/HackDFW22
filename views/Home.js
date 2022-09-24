@@ -12,7 +12,7 @@ import { Linking } from "react-native";
 import { db } from "../util/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 // import { Text } from "react-native-paper";
-import TodayGoals from "../components/TodayGoals";
+import DayGoals from "../components/DayGoals";
 import { LinearGradient } from "expo-linear-gradient";
 
 export default function Home({ navigation }) {
@@ -37,7 +37,7 @@ export default function Home({ navigation }) {
   return (
     <Container p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
       <Heading mt="2">Today's Goals</Heading>
-      <TodayGoals />
+      <DayGoals today={new Date().toJSON().slice(0, 10)} />
       <Heading mt="3">Information</Heading>
 
       <FlatList
