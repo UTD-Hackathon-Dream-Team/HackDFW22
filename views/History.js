@@ -1,13 +1,24 @@
 import React from "react";
-import { Card } from "react-native-ui-lib";
-import { Container, Heading, Text, Center, HStack, Avatar } from "native-base";
+import { Card } from "react-native-paper";
+import {
+  Container,
+  VStack,
+  Heading,
+  Text,
+  Center,
+  HStack,
+  Avatar,
+} from "native-base";
+import StaffList from "../components/StaffList";
 
 export default function History() {
   return (
     <Container>
-      <Heading style={{ padding: 20 }}>Current Staff</Heading>
-      <Card>
-        <Center>
+      <Heading size="md" style={{ padding: 10 }}>
+        Current Staff
+      </Heading>
+      <Center>
+        <Card style={{ height: 150, width: 300, padding: 10, marginLeft: 40 }}>
           <HStack space={3} justifyContent="center" width="100%">
             <Avatar
               source={{
@@ -15,10 +26,17 @@ export default function History() {
               }}
               size="2xl"
             />
-            <Text>Staff Name</Text>
+            <VStack>
+              <Text style={{ fontSize: 20, margin: 5 }}>Sam Yuruk</Text>
+              <Text style={{ margin: 5 }}>Head Nurse</Text>
+            </VStack>
           </HStack>
-        </Center>
-      </Card>
+        </Card>
+      </Center>
+      <Heading size="md" style={{ padding: 10 }}>
+        Staff History
+      </Heading>
+      <StaffList />
     </Container>
   );
 }

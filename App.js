@@ -8,6 +8,8 @@ import "./global";
 
 const Stack = createNativeStackNavigator();
 
+console.disableYellowBox = true;
+
 export default function App() {
   return (
     <NativeBaseProvider>
