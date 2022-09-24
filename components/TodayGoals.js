@@ -31,7 +31,6 @@ const TodayGoals = () => {
   }, []);
 
   async function completeGoal(goalID) {
-    console.log("Updating", goalID);
     const docRef = doc(db, "patient", global.config.patientId);
     const docSnap = await getDoc(docRef);
     var oldGoals = await docSnap.data().goals;
