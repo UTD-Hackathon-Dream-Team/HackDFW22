@@ -81,7 +81,7 @@ export default function History({navigation}) {
                 uri: currentStaff.image,
               }}
               size="2xl"
-            />
+              />
             <VStack>
               <Text style={{ fontSize: 20, margin: 5 }}>{currentStaff.name}</Text>
               <Text style={{ margin: 5 }}>{currentStaff.job}</Text>
