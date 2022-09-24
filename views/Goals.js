@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DayGoals from "../components/DayGoals";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
+import { Heading, Text, View } from "native-base";
 import Expansion from "../components/Expansion";
 import { db } from "../util/firebase";
 import { doc, getDoc } from "firebase/firestore";
@@ -37,15 +38,15 @@ const Goals = () => {
   }, []);
 
   return (
-    <View>
+    <View p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.title}>Today</Text>
+        <Heading mt="2">Today</Heading>
         <DayGoals today={today}></DayGoals>
       </View>
       <View style={styles.container}>
-        <Text style={styles.title}>Upcoming Goals</Text>
+      <Heading mt="2">Upcoming Goals</Heading>
         {tomorrows.map((key, i) => (
-          <Expansion
+          <Expansion 
             key={key}
             title={key}
             child={() => <DayGoals today={key}></DayGoals>}
@@ -53,7 +54,7 @@ const Goals = () => {
         ))}
       </View>
       <View style={styles.container}>
-        <Text style={styles.title}>Past Goals</Text>
+      <Heading mt="2">Past Goals</Heading>
         {yesterdays.map((key, i) => (
           <Expansion
             key={key}
