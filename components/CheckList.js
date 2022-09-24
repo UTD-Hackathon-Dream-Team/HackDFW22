@@ -1,13 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { Center, ScrollView, Text, View, Checkbox, VStack } from "native-base";
 
-import { Center, ScrollView, Text, View, Checkbox } from "native-base";
-
-export default function CheckList({ itemslist }) {
-  const [tasks, setTasks] = useState([]);
-  useEffect(() => {
-    setTasks(itemslist.map((item) => ({ text: item, completed: false })));
-  });
-
+export default function CheckList({ tasks, setTasks }) {
   const checkTask = (index) => {
     console.log(index);
     let newtasks = tasks;
@@ -16,6 +9,7 @@ export default function CheckList({ itemslist }) {
         newtasks[i].completed = !newtasks[i].completed;
       }
     }
+    console.log(index);
     setTasks(newtasks);
   };
 
@@ -24,7 +18,7 @@ export default function CheckList({ itemslist }) {
       <ScrollView>
         {tasks.map((task, index) => {
           return (
-            <View key={index}>
+            <VStack key={index}>
               <Checkbox
                 isChecked={task.isCompleted}
                 onPress={() => checkTask(index)}
@@ -32,7 +26,7 @@ export default function CheckList({ itemslist }) {
               >
                 {task.text}
               </Checkbox>
-            </View>
+            </VStack>
           );
         })}
       </ScrollView>
