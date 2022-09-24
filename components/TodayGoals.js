@@ -31,7 +31,6 @@ const TodayGoals = () => {
   }, []);
 
   async function completeGoal(goalID) {
-    console.log("Updating", goalID);
     const docRef = doc(db, "patient", global.config.patientId);
     const docSnap = await getDoc(docRef);
     var oldGoals = await docSnap.data().goals;
@@ -50,9 +49,9 @@ const TodayGoals = () => {
   }
 
   return (
-    <FlatList
+    <FlatList p="5"
       data={goals}
-      style={{ backgroundColor: "pink", height: 150, flexGrow: 0 }}
+      style={{ backgroundColor: "#dcc6c4", height: 150, flexGrow: 0 }}
       renderItem={({ item }) => (
         <View>
           <Icon
