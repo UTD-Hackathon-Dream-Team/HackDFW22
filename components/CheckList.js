@@ -1,38 +1,68 @@
-import { Center, Container, ScrollView, Checkbox, VStack } from "native-base";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, FlatList, View } from "native-base";
+import { db } from "../util/firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-const CheckList = ({ tasks, setTasks }) => {
-  async function checkTask(index) {
-    let newtasks = tasks;
-    for (let i = 0; i < newtasks.length; i++) {
-      if (i == index) {
-        newtasks[i].completed = !newtasks[i].completed;
+const TodayGoals = ({ today }) => {
+  const [goals, setGoals] = useState({});
+  useEffect(() => {
+    async function getGoals() {
+      const docRef = doc(db, "patient", global.config.patientId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        var patientGoals = await docSnap.data().goals;
+        const results = patientGoals.filter((obj) => {
+          var goalDate = new Date(obj.date.seconds * 1000)
+            .toJSON()
+            .slice(0, 10);
+          return goalDate === today;
+        });
+        setGoals(results);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
       }
     }
-    setTasks(newtasks);
+    getGoals();
+  }, []);
+
+  async function completeGoal(goalID) {
+    console.log("Updating", goalID);
+    const docRef = doc(db, "patient", global.config.patientId);
+    const docSnap = await getDoc(docRef);
+    var oldGoals = await docSnap.data().goals;
+    var objIndex = oldGoals.findIndex((obj) => obj.id == goalID);
+    console.log(objIndex);
+    console.log(oldGoals[objIndex]);
+    oldGoals[objIndex].done = !oldGoals[objIndex].done;
+    await updateDoc(docRef, {
+      goals: oldGoals,
+    });
+    const results = oldGoals.filter((obj) => {
+      var goalDate = new Date(obj.date.seconds * 1000).toJSON().slice(0, 10);
+      return goalDate === today;
+    });
+    setGoals(results);
   }
 
   return (
-    <ScrollView>
-      {tasks.map((task, index) => {
-        return (
-          <Checkbox
-            key={index + task.text}
-            onPress={checkTask}
-            checked={task.completed}
-          >
-            {task.text}
-          </Checkbox>
-        );
-      })}
-    </ScrollView>
+    <FlatList
+      data={goals}
+      style={{ backgroundColor: "pink", height: 150, flexGrow: 0 }}
+      renderItem={({ item }) => (
+        <View>
+          <Icon
+            name={item.done ? "check-circle" : "radio-button-unchecked"}
+            size={20}
+            color="#666666"
+            onPress={() => completeGoal(item.id)}
+          />
+          <Text>{item.goal}</Text>
+        </View>
+      )}
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-  },
-});
-
-export default CheckList;
+export default TodayGoals;

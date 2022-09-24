@@ -22,7 +22,6 @@ export default function StaffList({ history, navigation }) {
           status: item.staff.onshift, 
           funfact: item.staff.funfact, 
           image: item.staff.image, 
-          time: item.timein.seconds,  
           history: history.filter(function (entry) {
             return entry.staffId == item.staffId;
           })

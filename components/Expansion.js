@@ -9,8 +9,6 @@ function Expansion({ child, title }) {
   }
   return (
     <View>
-      {/* <Button onPress={show} title={title} /> */}
-      <Text>{title}</Text>
       <List.Accordion
         title={title}
         left={(props) => (

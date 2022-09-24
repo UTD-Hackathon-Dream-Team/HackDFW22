@@ -57,7 +57,7 @@ export default function Home({ navigation }) {
           <Box style={styles.slides}>
             {/* <Image source={} style={{ width: 180, height: 200 }}></Image> */}
             <Text m="7" fontSize="4xl" style={styles.desc}>
-              welcome to our app :D
+              Welcome to Care Companion!
             </Text>
             <Button shadow={2} onPress={() => navigation.navigate("Root")}>
               lemme in
@@ -66,7 +66,7 @@ export default function Home({ navigation }) {
           <Box style={styles.slides}>
             {/* <Image source={} style={{ width: 120, height: 120 }}></Image> */}
             <Text m="7" fontSize="3xl" style={styles.desc}>
-              words words words
+              Keep track of your care milestones and the staff that assist you!
             </Text>
           </Box>
           <Box style={styles.slides}>
@@ -78,6 +78,8 @@ export default function Home({ navigation }) {
               }}
             >
               <Container>
+              <Text my="3" fontSize="3xl" style={styles.desc}>Login
+            </Text>
                 <Text style={{ fontSize: 20, marginBottom: 10 }}>Name</Text>
                 <TextInput
                   style={{
