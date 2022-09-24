@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Container, Center, Text } from "native-base";
+import { Heading,Container,View,Box} from "native-base";
 import { db } from "../util/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+// import { Text } from "react-native-paper";
 import TodayGoals from "../components/TodayGoals";
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Home() {
   const [goals, setGoals] = useState({});
@@ -18,19 +20,17 @@ export default function Home() {
     }
     getResources();
   }, []);
-
+  
   return (
-    <Center>
-      <Container>
-        <Text>Home</Text>
-        <Text>Today's Goals</Text>
-        <TodayGoals />
-        <Text>Information</Text>
+      <Container p="3" backgroundColor="#F5DCDA" style={{ flex: 1}}>
+        <Heading my="2">Today's Goals</Heading>
+        <TodayGoals/>
+        <Heading my="2">Information</Heading>
         {/* <FlatList
           data={resourceList}
           renderItem={({ item }) => <Text>{item.item}</Text>}
         /> */}
       </Container>
-    </Center>
-  );
+     
+      );
 }
