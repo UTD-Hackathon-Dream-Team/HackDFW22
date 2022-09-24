@@ -59,6 +59,9 @@ export default function Home({ navigation }) {
             <Text m="7" fontSize="4xl" style={styles.desc}>
               welcome to our app :D
             </Text>
+            <Button shadow={2} onPress={() => navigation.navigate("Root")}>
+              lemme in
+            </Button>
           </Box>
           <Box style={styles.slides}>
             {/* <Image source={} style={{ width: 120, height: 120 }}></Image> */}
