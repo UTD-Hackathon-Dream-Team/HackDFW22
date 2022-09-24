@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Center } from "native-base";
 import CheckList from "../components/CheckList";
 import { StyleSheet, Text, View } from "react-native";
+import Expansion from "../components/Expansion";
 
 const Goals = () => {
   let testlist = ["test", "test2"];
@@ -16,10 +17,14 @@ const Goals = () => {
         <Text style={styles.title}>Today</Text>
         <CheckList tasks={tasks} setTasks={() => setTasks}></CheckList>
       </Container>
-      <Container style={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.title}>Upcoming Goals</Text>
         <CheckList tasks={tasks} setTasks={() => setTasks}></CheckList>
-      </Container>
+        <Expansion
+          title="Expansion Title"
+          child={() => <Text>test child</Text>}
+        ></Expansion>
+      </View>
     </View>
   );
 };
