@@ -7,7 +7,12 @@ import { db } from "../util/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 const Goals = () => {
-  var today = new Date().toJSON().slice(0, 10);
+  var today = new Date();
+  today.setHours(0);
+  today.setMinutes(0);
+  today.setSeconds(0);
+  today.setMilliseconds(0);
+  today = today.toJSON().slice(0, 10);
   const [yesterdays, setYesterdays] = useState([]);
   const [tomorrows, setTomorrows] = useState([]);
 
@@ -19,9 +24,12 @@ const Goals = () => {
         var patientGoals = await docSnap.data().goals;
         for (let index = 0; index < patientGoals.length; index++) {
           const obj = patientGoals[index];
-          var goalDate = new Date(obj.date.seconds * 1000)
-            .toJSON()
-            .slice(0, 10);
+          var goalDate = new Date(obj.date.seconds * 1000);
+          goalDate.setHours(0);
+          goalDate.setMinutes(0);
+          goalDate.setSeconds(0);
+          goalDate.setMilliseconds(0);
+          goalDate = goalDate.toJSON().slice(0, 10);
           if (goalDate < today) {
             setYesterdays([...new Set([...yesterdays, goalDate])]);
           } else if (goalDate > today) {
@@ -44,9 +52,9 @@ const Goals = () => {
         <DayGoals today={today}></DayGoals>
       </View>
       <View style={styles.container}>
-      <Heading mt="2">Upcoming Goals</Heading>
+        <Heading mt="2">Upcoming Goals</Heading>
         {tomorrows.map((key, i) => (
-          <Expansion 
+          <Expansion
             key={key}
             title={key}
             child={() => <DayGoals today={key}></DayGoals>}
@@ -54,7 +62,7 @@ const Goals = () => {
         ))}
       </View>
       <View style={styles.container}>
-      <Heading mt="2">Past Goals</Heading>
+        <Heading mt="2">Past Goals</Heading>
         {yesterdays.map((key, i) => (
           <Expansion
             key={key}
