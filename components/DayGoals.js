@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Text, FlatList, View, Flex } from "native-base";
+import { Text, FlatList, View } from "native-base";
 import { db } from "../util/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-const TodayGoals = () => {
+const DayGoals = ({ today }) => {
   const [goals, setGoals] = useState({});
-  var today = new Date().toJSON().slice(0, 10);
-
   useEffect(() => {
     async function getGoals() {
       const docRef = doc(db, "patient", global.config.patientId);
@@ -20,7 +18,6 @@ const TodayGoals = () => {
             .slice(0, 10);
           return goalDate === today;
         });
-        console.log(results);
         setGoals(results);
       } else {
         // doc.data() will be undefined in this case
@@ -31,6 +28,7 @@ const TodayGoals = () => {
   }, []);
 
   async function completeGoal(goalID) {
+    console.log("Updating", goalID);
     const docRef = doc(db, "patient", global.config.patientId);
     const docSnap = await getDoc(docRef);
     var oldGoals = await docSnap.data().goals;
@@ -49,25 +47,22 @@ const TodayGoals = () => {
   }
 
   return (
-    <FlatList p="5"
+    <FlatList
       data={goals}
-      style={{ backgroundColor: "#dcc6c4", height: 100, width: 275, flexGrow: 0 }}
+      style={{ backgroundColor: "pink", height: 150, flexGrow: 0 }}
       renderItem={({ item }) => (
         <View>
-          <Flex direction="row">
           <Icon
             name={item.done ? "check-circle" : "radio-button-unchecked"}
             size={20}
             color="#666666"
             onPress={() => completeGoal(item.id)}
           />
-          <Text mb="2" mx="1">{item.goal}</Text>
-          </Flex>
-          
+          <Text>{item.goal}</Text>
         </View>
       )}
     />
   );
 };
 
-export default TodayGoals;
+export default DayGoals;
