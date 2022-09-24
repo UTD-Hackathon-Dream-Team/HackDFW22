@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./views/Login";
 import BottomTabNavigator from "./components/BottomTabNavigator";
 import "./global";
+import Staff from "./views/Staff";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ export default function App() {
             component={LoginScreen}
           />
           <Stack.Screen name="Root" component={BottomTabNavigator} />
+          <Stack.Screen name="Staff" component={Staff} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
