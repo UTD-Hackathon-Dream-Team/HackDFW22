@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Container, Center, Text, FlatList, View } from "native-base";
+import { Container, Center, Text, FlatList, View, Heading } from "native-base";
 import { Linking } from "react-native";
 import { db } from "../util/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+// import { Text } from "react-native-paper";
 import TodayGoals from "../components/TodayGoals";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Home() {
   const [resources, setResources] = useState({});
-  var today = new Date().toJSON().slice(0, 10);
 
   useEffect(() => {
     async function getResources() {
@@ -22,45 +23,38 @@ export default function Home() {
         console.log("No such document!");
       }
     }
-    const resourceList = [
-      { item: "Resource 1" },
-      { item: "Resource 2" },
-      { item: "Resource 3" },
-    ];
     getResources();
   }, []);
 
   return (
-    <Center>
-      <Container>
-        <Text>Home</Text>
-        <Text>Today's Goals</Text>
-        <TodayGoals />
-        <Text>Information</Text>
-        <FlatList
-          style={{ backgroundColor: "pink", height: 250, flexGrow: 0 }}
-          data={resources}
-          renderItem={({ item }) => (
-            <View>
-              <Text
-                style={{ margin: 10, textDecorationLine: "underline" }}
-                onPress={() => {
-                  item.link != null &&
-                    Linking.canOpenURL(item.link).then((supported) => {
-                      if (supported) {
-                        Linking.openURL(item.link);
-                      } else {
-                        console.log("Don't know how to open URI: " + item.link);
-                      }
-                    });
-                }}
-              >
-                {item.title}
-              </Text>
-            </View>
-          )}
-        />
-      </Container>
-    </Center>
+    <Container p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
+      <Heading my="2">Today's Goals</Heading>
+      <TodayGoals />
+      <Heading my="2">Information</Heading>
+      <FlatList
+        style={{ backgroundColor: "pink", height: 250, flexGrow: 0 }}
+        data={resources}
+        renderItem={({ item }) => (
+          <View>
+            {!item.watched && <Text style={{ color: "red" }}>NEW</Text>}
+            <Text
+              style={{ margin: 10, textDecorationLine: "underline" }}
+              onPress={() => {
+                item.link != null &&
+                  Linking.canOpenURL(item.link).then((supported) => {
+                    if (supported) {
+                      Linking.openURL(item.link);
+                    } else {
+                      console.log("Don't know how to open URI: " + item.link);
+                    }
+                  });
+              }}
+            >
+              {item.title}
+            </Text>
+          </View>
+        )}
+      />
+    </Container>
   );
 }
