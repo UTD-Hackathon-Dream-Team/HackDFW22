@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Expansion from "../components/Expansion";
 
 const Goals = () => {
-  let testlist = ["test", "test2"];
+  let testlist = ["test", "test2", "I2", "I3", "I4", "I5", "I6"];
   const [tasks, setTasks] = useState(
     testlist.map((item) => ({ text: item, completed: false }))
   );
@@ -21,7 +21,9 @@ const Goals = () => {
         <CheckList tasks={tasks} setTasks={() => setTasks}></CheckList>
         <Expansion
           title="Expansion Title"
-          child={() => <Text>test child</Text>}
+          child={() => (
+            <CheckList tasks={tasks} setTasks={() => setTasks}></CheckList>
+          )}
         ></Expansion>
       </View>
     </View>
