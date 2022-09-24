@@ -3,6 +3,7 @@ import * as React from "react";
 
 import HomeScreen from "../views/Home";
 import GoalScreen from "../views/Goals";
+import HistoryScreen from "../views/History";
 
 import { Feather } from "@expo/vector-icons";
 
@@ -25,7 +26,7 @@ export default function BottomTabNavigator({ navigation }) {
       />
       <BottomTab.Screen
         name="Staff"
-        component={HomeScreen}
+        component={HistoryScreen}
         options={{
           tabBarLabel: "Staff",
           tabBarIcon: ({ color, size }) => (
