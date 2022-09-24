@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
-  Container,
+  View,
   Text,
   FlatList,
-  View,
   Heading,
   Badge,
   Flex,
@@ -35,10 +34,10 @@ export default function Home({ navigation }) {
   }, []);
 
   return (
-    <Container p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
-      <Heading mt="2">Today's Goals</Heading>
+    <View p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
+      <Heading my="2">Today's Goals</Heading>
       <DayGoals today={new Date().toJSON().slice(0, 10)} />
-      <Heading mt="3">Information</Heading>
+      <Heading my="3">Information</Heading>
 
       <FlatList
         p="5"
@@ -75,6 +74,6 @@ export default function Home({ navigation }) {
           </View>
         )}
       />
-    </Container>
+    </View>
   );
 }
