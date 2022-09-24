@@ -1,40 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Center, Text, FlatList, Checkbox } from "native-base";
 import { db } from "../util/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
-export default async function Home() {
-  const docRef = doc(db, "patient", global.config.patientID);
-  const docSnap = await getDoc(docRef);
+export default function Home() {
+  const [goals, setGoals] = useState({});
 
-  if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
-  } else {
-    // doc.data() will be undefined in this case
-    console.log("No such document!");
-  }
+  useEffect(() => {
+    // Update the document title using the browser API
+    async function getGoals() {
+      console.log(global.config.patientId);
+      const docRef = doc(db, "patient", global.config.patientId);
+      const docSnap = await getDoc(docRef);
 
-  const goalList = [
-    { item: "Do something 1" },
-    { item: "Do something 2" },
-    { item: "Do something 3" },
-  ];
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        console.log(docSnap.data());
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
 
-  const resourceList = [
-    { item: "Resource 1" },
-    { item: "Resource 2" },
-    { item: "Resource 3" },
-  ];
+      const goalList = [
+        { item: "Do something 1" },
+        { item: "Do something 2" },
+        { item: "Do something 3" },
+      ];
+      setGoals(goalList);
+
+      const resourceList = [
+        { item: "Resource 1" },
+        { item: "Resource 2" },
+        { item: "Resource 3" },
+      ];
+    }
+    getGoals();
+  }, []);
 
   return (
     <Center>
       <Container>
         <Text>Home</Text>
         <Text>Today's Goals</Text>
-        {/* <FlatList
-          data={goalList}
+        <FlatList
+          data={goals}
           renderItem={({ item }) => <Checkbox>{item.item}</Checkbox>}
-        /> */}
+        />
         <Text>Information</Text>
         {/* <FlatList
           data={resourceList}

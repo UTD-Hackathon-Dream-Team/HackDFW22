@@ -45,7 +45,7 @@ export default function Home({ navigation }) {
     );
     const querySnapshot = await getDocs(patient);
     querySnapshot.forEach((doc) => {
-      global.config.patientID = doc.id;
+      global.config.patientId = doc.id;
     });
     navigation.navigate("Root");
   }
