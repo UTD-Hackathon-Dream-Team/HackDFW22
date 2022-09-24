@@ -8,10 +8,9 @@ import { doc, getDoc } from "firebase/firestore";
 import { focusProps } from "react-native-web/dist/cjs/modules/forwardedProps";
 
 const Goals = () => {
-  const [goals, setGoals] = useState({});
   const [todays, setTodays] = useState([]);
-  const [yesterdays, setYesterdays] = useState([]);
-  const [tomorrows, setTomorrows] = useState([]);
+  const [yesterdays, setYesterdays] = useState({});
+  const [tomorrows, setTomorrows] = useState({});
 
   useEffect(() => {
     function formatDate(date) {
@@ -29,7 +28,7 @@ const Goals = () => {
       return new Date(Date1).getTime() < new Date(Date2).getTime();
     }
     async function getGoals() {
-      const allGoals = {};
+      var today = new Date().toJSON().slice(0, 10);
       const docRef = doc(db, "patient", global.config.patientId);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -39,30 +38,28 @@ const Goals = () => {
           var goalDate = new Date(obj.date.seconds * 1000)
             .toJSON()
             .slice(0, 10);
-          if (!Object.keys(patientGoals).includes(goalDate)) {
-            allGoals[goalDate] = [];
+          if (goalDate === today) {
+            setTodays((todays) => [...todays, obj]);
+          } else if (goalDate < today) {
+            const less = yesterdays;
+            if (!Object.keys(less).includes(goalDate)) {
+              less[goalDate] = [];
+            }
+            less[goalDate] = [...less[goalDate], obj];
+            setYesterdays(JSON.parse(JSON.stringify(less)));
+          } else {
+            const more = tomorrows;
+            if (!Object.keys(more).includes(goalDate)) {
+              more[goalDate] = [];
+            }
+            more[goalDate] = [...more[goalDate], obj];
+            setTomorrows(JSON.parse(JSON.stringify(more)));
           }
-          allGoals[goalDate] = [...allGoals[goalDate], obj];
         }
-        const dates_less_than = Object.keys(allGoals).filter((key) =>
-          lessthan(Date.parse(key), new Date())
-        );
-        const dates_greater_than = Object.keys(allGoals).filter((key) =>
-          lessthan(new Date(), Date.parse(key))
-        );
-        console.log("Keys");
-        console.log(Object.keys(allGoals));
-        console.log(dates_less_than);
-        console.log(dates_greater_than);
-        setTodays(allGoals[formatDate(new Date())]);
-        setTomorrows();
-        setYesterdays();
-        setGoals(allGoals);
-        // console.log(allGoals);
-        console.log(yesterdays);
+        console.log("State");
         console.log(todays);
+        console.log(yesterdays);
         console.log(tomorrows);
-        // console.log(dates);
       } else {
         console.log("No such document!");
       }
