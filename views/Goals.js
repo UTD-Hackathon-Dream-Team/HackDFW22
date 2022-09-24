@@ -53,6 +53,20 @@ const Goals = () => {
     getGoals();
   }, []);
 
+  function toggleTomorrows(batch) {
+    let key = new Date(batch[0].date.seconds * 1000).toJSON().slice(0, 10);
+    let tom = JSON.parse(JSON.stringify(tomorrows));
+    tom[key] = batch;
+    setTomorrows(tom);
+  }
+
+  function toggleYesterdays(batch) {
+    let key = new Date(batch[0].date.seconds * 1000).toJSON().slice(0, 10);
+    let tom = JSON.parse(JSON.stringify(yesterdays));
+    tom[key] = batch;
+    setYesterdays(tom);
+  }
+
   return (
     <View>
       <View style={styles.container}>
@@ -61,6 +75,16 @@ const Goals = () => {
       </View>
       <View style={styles.container}>
         <Text style={styles.title}>Upcoming Goals</Text>
+        <Text>{JSON.stringify(Object.keys(tomorrows))}</Text>
+        {Object.keys(tomorrows).map((key, i) => (
+          <View key={i + key}>
+            {/* <Text>{JSON.stringify(tomorrows[key])}</Text> */}
+            <CheckList
+              goals={tomorrows[key]}
+              setGoals={toggleTomorrows}
+            ></CheckList>
+          </View>
+        ))}
         {/* <Expansion
             title="Expansion Title"
             child={() => (
