@@ -13,20 +13,6 @@ const Goals = () => {
   const [tomorrows, setTomorrows] = useState({});
 
   useEffect(() => {
-    function formatDate(date) {
-      var d = new Date(date),
-        month = "" + (d.getMonth() + 1),
-        day = "" + d.getDate(),
-        year = d.getFullYear();
-
-      if (month.length < 2) month = "0" + month;
-      if (day.length < 2) day = "0" + day;
-
-      return [year, month, day].join("-");
-    }
-    function lessthan(Date1, Date2) {
-      return new Date(Date1).getTime() < new Date(Date2).getTime();
-    }
     async function getGoals() {
       var today = new Date().toJSON().slice(0, 10);
       const docRef = doc(db, "patient", global.config.patientId);
