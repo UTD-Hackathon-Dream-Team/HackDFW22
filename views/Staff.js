@@ -69,9 +69,18 @@ export default function Staff({ route }) {
       />
 
       <Text style={{ marginTop: 10 }}>Procedures Performed</Text>
-      <Card style={{ marginTop: 5 }}>
-        <Card.Title title="Test Title" subtitle="Test Subtitle" />
-      </Card>
+      <FlatList
+        style={{ marginTop: 5 }}
+        data={route.params.procedures}
+        renderItem={({ item }) => {
+          return (
+            <Card>
+              <Text>{item.time.toDate().toString()}</Text>
+              <Text>{item.description}</Text>
+            </Card>
+          );
+        }}
+      />
     </View>
   );
 }
