@@ -47,19 +47,28 @@ const DayGoals = ({ today }) => {
   }
 
   return (
-    <FlatList p="5"
+    <FlatList
+      p="5"
       data={goals}
-      style={{ backgroundColor: "#dcc6c4", height: 100, width: 275, flexGrow: 0 }}
+      style={{
+        backgroundColor: "#dcc6c4",
+        height: 100,
+        width: 275,
+        flexGrow: 0,
+      }}
       renderItem={({ item }) => (
         <View>
           <Flex direction="row">
             <Icon
               name={item.done ? "check-circle" : "radio-button-unchecked"}
               size={20}
-              color="#666666"
+              color={item.done ? "green" : "grey"}
+              // color="#666666"
               onPress={() => completeGoal(item.id)}
             />
-            <Text mb="2" mx="1">{item.goal}</Text>
+            <Text mb="2" mx="1">
+              {item.goal}
+            </Text>
           </Flex>
         </View>
       )}
