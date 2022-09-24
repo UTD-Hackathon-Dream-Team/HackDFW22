@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "react-native-paper";
 import {
-  Container,
+  View,
   VStack,
   Heading,
   Text,
@@ -55,13 +55,11 @@ export default function History({navigation}) {
  
 
   return (
-    <Container>
-      <Heading size="md" style={{ padding: 10 }}>
-        Current Staff
-      </Heading>
+    <View p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
+      <Heading my="2">Current Staff</Heading>
       <Center>
         { currentStaff ? <Card 
-          style={{ height: 150, width: 300, padding: 10, marginLeft: 40 }}
+          style={{ height: 150, width: 300, padding: 10 }}
           onPress={() => {
             navigation.push("Staff", { 
               name: currentStaff.name, 
@@ -89,10 +87,8 @@ export default function History({navigation}) {
           </HStack>
         </Card> :  <Spinner size="lg" />}
       </Center>
-      <Heading size="md" style={{ padding: 10 }}>
-        Staff History
-      </Heading>
+      <Heading my="2">Staff History</Heading>
       {history ? <StaffList history={history} navigation={navigation}/> : <Spinner size="lg" />}
-    </Container>
+    </View>
   );
 }

@@ -5,7 +5,7 @@ import { Card } from "react-native-paper";
 
 export default function Staff({ route }) {
   return (
-    <View>
+    <View p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
       <Text
         style={{
           marginTop: 10,
