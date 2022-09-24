@@ -22,8 +22,7 @@ export default function Staff({ route }) {
             data= {route.params.history} 
             renderItem={({ item }) => (
                 <View>
-                    <Text>Time in: {item.timein.seconds}</Text>
-                    <Text>Time out: {item.timeout.seconds}</Text>
+                    <Text>from {item.timein.seconds} to {item.timeout.seconds}</Text>
                 </View>
             )}/>
       </Card>
