@@ -4,7 +4,7 @@ import { db } from "../util/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-const TodayGoals = ({ today }) => {
+const DayGoals = ({ today }) => {
   const [goals, setGoals] = useState({});
   useEffect(() => {
     async function getGoals() {
@@ -65,4 +65,4 @@ const TodayGoals = ({ today }) => {
   );
 };
 
-export default TodayGoals;
+export default DayGoals;

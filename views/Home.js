@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Container, Text, FlatList, View, Heading, Badge, Flex } from "native-base";
+import {
+  Container,
+  Text,
+  FlatList,
+  View,
+  Heading,
+  Badge,
+  Flex,
+} from "native-base";
 import { Linking } from "react-native";
 import { db } from "../util/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 // import { Text } from "react-native-paper";
-import TodayGoals from "../components/TodayGoals";
+import DayGoals from "../components/DayGoals";
 import { LinearGradient } from "expo-linear-gradient";
 
 export default function Home() {
@@ -29,17 +37,22 @@ export default function Home() {
   return (
     <Container p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
       <Heading mt="2">Today's Goals</Heading>
-      <TodayGoals />
+      <DayGoals today={new Date().toJSON().slice(0, 10)} />
       <Heading mt="3">Information</Heading>
-      
 
-      <FlatList p="5"
-        style={{ backgroundColor: "#dcc6c4", height: 200, width: 275, flexGrow: 0}}
+      <FlatList
+        p="5"
+        style={{
+          backgroundColor: "#dcc6c4",
+          height: 200,
+          width: 275,
+          flexGrow: 0,
+        }}
         data={resources}
         renderItem={({ item }) => (
           <View>
-             <Flex direction="row">
-             {!item.watched && <Badge colorScheme="success">NEW</Badge>}
+            <Flex direction="row">
+              {!item.watched && <Badge colorScheme="success">NEW</Badge>}
               <Text
                 style={{ margin: 10, textDecorationLine: "underline" }}
                 onPress={() => {
@@ -55,8 +68,7 @@ export default function Home() {
               >
                 {item.title}
               </Text>
-             </Flex>
-           
+            </Flex>
           </View>
         )}
       />
