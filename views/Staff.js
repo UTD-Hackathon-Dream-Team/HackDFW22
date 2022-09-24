@@ -2,10 +2,11 @@ import React from "react";
 import { Text, View } from "react-native";
 import { Avatar, FlatList } from "native-base";
 import { Card } from "react-native-paper";
+import { Timestamp } from "firebase/firestore";
 
 export default function Staff({ route }) {
   return (
-    <View>
+    <View p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
       <Text
         style={{
           marginTop: 10,
@@ -42,9 +43,7 @@ export default function Staff({ route }) {
         >
           Current
         </Text>
-      ) : (
-        null
-      )}
+      ) : null}
 
       <Text
         style={{
@@ -59,13 +58,14 @@ export default function Staff({ route }) {
       <FlatList
         style={{ marginTop: 5 }}
         data={route.params.history}
-        renderItem={({ item }) => (
-          <Card>
-            <Text>
-              from {item.timein.seconds} to {item.timeout.seconds}
-            </Text>
-          </Card>
-        )}
+        renderItem={({ item }) => {
+          return (
+            <Card>
+              <Text>from: {item.timein.toDate().toString()}</Text>
+              <Text>to: {item.timeout.toDate().toString()}</Text>
+            </Card>
+          );
+        }}
       />
 
       <Text style={{ marginTop: 10 }}>Procedures Performed</Text>
