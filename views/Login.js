@@ -45,76 +45,75 @@ export default function Home({ navigation }) {
     );
     const querySnapshot = await getDocs(patient);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      global.config.patientID = doc.id;
+      global.config.patientId = doc.id;
     });
-    console.log(global.config.patientID);
-    // navigation.navigate("Root");
+    navigation.navigate("Root");
   }
 
   return (
-    <Box bg={styles.bg} style={{ flex: 1 }}>
-      <Swiper showsButtons loop={false}>
-        <Box style={styles.slides}>
-          {/* <Image source={} style={{ width: 180, height: 200 }}></Image> */}
-          <Text m="7" fontSize="4xl" style={styles.desc}>
-            welcome to our app :D
-          </Text>
-          <Button shadow={2} onPress={() => navigation.navigate("Root")}>
-            Click me
-          </Button>
-        </Box>
-        <Box style={styles.slides}>
-          {/* <Image source={} style={{ width: 120, height: 120 }}></Image> */}
-          <Text m="7" fontSize="3xl" style={styles.desc}>
-            words words words
-          </Text>
-        </Box>
-        <Box style={styles.slides}>
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Container>
-              <Text style={{ fontSize: 20, marginBottom: 10 }}>Name</Text>
-              <TextInput
-                style={{
-                  height: 40,
-                  borderColor: "gray",
-                  borderWidth: 1,
-                  width: 200,
-                  marginBottom: 10,
-                }}
-                onChangeText={onChangeName}
-                value={name}
-              />
-              <Text style={{ fontSize: 20, marginBottom: 10 }}>
-                Date of Birth
-              </Text>
-              <TextInput
-                style={{
-                  height: 40,
-                  borderColor: "gray",
-                  borderWidth: 1,
-                  width: 200,
-                  marginBottom: 10,
-                }}
-                onChangeText={onChangeDOB}
-                value={dob}
-                placeholder="MMDDYYYY"
-                placeholderTextColor="grey"
-              />
-              <Button shadow={2} onPress={login}>
-                Log In
-              </Button>
-            </Container>
-          </View>
-        </Box>
-      </Swiper>
-    </Box>
+    <NativeBaseProvider>
+      <Box bg={styles.bg} style={{ flex: 1 }}>
+        <Swiper showsButtons loop={false}>
+          <Box style={styles.slides}>
+            {/* <Image source={} style={{ width: 180, height: 200 }}></Image> */}
+            <Text m="7" fontSize="4xl" style={styles.desc}>
+              welcome to our app :D
+            </Text>
+            <Button shadow={2} onPress={() => navigation.navigate("Root")}>
+              lemme in
+            </Button>
+          </Box>
+          <Box style={styles.slides}>
+            {/* <Image source={} style={{ width: 120, height: 120 }}></Image> */}
+            <Text m="7" fontSize="3xl" style={styles.desc}>
+              words words words
+            </Text>
+          </Box>
+          <Box style={styles.slides}>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Container>
+                <Text style={{ fontSize: 20, marginBottom: 10 }}>Name</Text>
+                <TextInput
+                  style={{
+                    height: 40,
+                    borderColor: "gray",
+                    borderWidth: 1,
+                    width: 200,
+                    marginBottom: 10,
+                  }}
+                  onChangeText={onChangeName}
+                  value={name}
+                />
+                <Text style={{ fontSize: 20, marginBottom: 10 }}>
+                  Date of Birth
+                </Text>
+                <TextInput
+                  style={{
+                    height: 40,
+                    borderColor: "gray",
+                    borderWidth: 1,
+                    width: 200,
+                    marginBottom: 10,
+                  }}
+                  onChangeText={onChangeDOB}
+                  value={dob}
+                  placeholder="MMDDYYYY"
+                  placeholderTextColor="grey"
+                />
+                <Button shadow={2} onPress={login}>
+                  Log In
+                </Button>
+              </Container>
+            </View>
+          </Box>
+        </Swiper>
+      </Box>
+    </NativeBaseProvider>
   );
 }
