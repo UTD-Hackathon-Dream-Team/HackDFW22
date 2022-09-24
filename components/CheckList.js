@@ -1,6 +1,7 @@
-import { Center, ScrollView, Text, View, Checkbox, VStack } from "native-base";
+import { Center, Container, ScrollView, Checkbox, VStack } from "native-base";
+import { StyleSheet, Text, View } from "react-native";
 
-export default function CheckList({ tasks, setTasks }) {
+const CheckList = ({ tasks, setTasks }) => {
   const checkTask = (index) => {
     console.log(index);
     let newtasks = tasks;
@@ -14,22 +15,22 @@ export default function CheckList({ tasks, setTasks }) {
   };
 
   return (
-    <Center>
-      <ScrollView>
-        {tasks.map((task, index) => {
-          return (
-            <VStack key={index}>
-              <Checkbox
-                isChecked={task.isCompleted}
-                onPress={() => checkTask(index)}
-                value={task.text}
-              >
-                {task.text}
-              </Checkbox>
-            </VStack>
-          );
-        })}
-      </ScrollView>
-    </Center>
+    <ScrollView>
+      {tasks.map((task, index) => {
+        return (
+          <VStack key={index}>
+            <Text>{task.text}</Text>
+          </VStack>
+        );
+      })}
+    </ScrollView>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 50,
+  },
+});
+
+export default CheckList;
