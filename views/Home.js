@@ -52,6 +52,9 @@ export default function Home() {
     console.log(objIndex);
     console.log(oldGoals[objIndex]);
     oldGoals[objIndex].done = !oldGoals[objIndex].done;
+    await updateDoc(docRef, {
+      goals: oldGoals,
+    });
     const results = oldGoals.filter((obj) => {
       var goalDate = new Date(obj.date.seconds * 1000).toJSON().slice(0, 10);
       return goalDate === today;
