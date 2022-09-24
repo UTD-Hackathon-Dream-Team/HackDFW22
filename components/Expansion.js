@@ -1,28 +1,37 @@
 import React, { useState } from "react";
 import { List } from "react-native-paper";
-import { Pressable, View, SafeAreaView, StyleSheet, Text } from "react-native";
-import { Button } from "native-base";
+import { Pressable, View, StyleSheet, Text } from "react-native";
 
 function Expansion({ child, title }) {
   const [isExpanded, expand] = useState(false);
   async function show() {
-    console.log("hello");
     expand(!isExpanded);
   }
   return (
-    <View style={styles.container}>
+    <View>
       {/* <Button onPress={show} title={title} /> */}
-      <Pressable onPress={show} style={styles.button}>
-        <Text>{title}</Text>
-      </Pressable>
-      <View>{isExpanded && child()}</View>
+      <Text>{title}</Text>
+      <List.Accordion
+        title={title}
+        left={(props) => (
+          <List.Icon
+            {...props}
+            icon={isExpanded ? "chevron-right" : "chevron-down"}
+          />
+        )}
+        right={(props) => null}
+        expanded={isExpanded}
+        onPress={show}
+        style={styles.container}
+      >
+        {child()}
+      </List.Accordion>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginRight: 20,
     width: "100%",
     alignItems: "center",
   },
