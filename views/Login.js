@@ -45,12 +45,9 @@ export default function Home({ navigation }) {
     );
     const querySnapshot = await getDocs(patient);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
       global.config.patientID = doc.id;
     });
-    console.log(global.config.patientID);
-    // navigation.navigate("Root");
+    navigation.navigate("Root");
   }
 
   return (
