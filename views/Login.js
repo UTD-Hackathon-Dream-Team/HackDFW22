@@ -60,7 +60,7 @@ export default function Home({ navigation }) {
               welcome to our app :D
             </Text>
             <Button shadow={2} onPress={() => navigation.navigate("Root")}>
-              Click me
+              lemme in
             </Button>
           </Box>
           <Box style={styles.slides}>
