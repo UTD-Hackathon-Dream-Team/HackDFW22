@@ -17,14 +17,13 @@ import StaffList from "../components/StaffList";
 export default function History({navigation}) {
   const [history, setHistory] = useState(null);
   const [currentStaff, setCurrentStaff] = useState(null);
-  const [patientWing, setPatientWing] = useState("");
 
 
   useEffect(() => {
     async function getHistory() {
       const docRef = doc(db, "patient", global.config.patientId);
       let docSnap = await getDoc(docRef);
-      setPatientWing(docSnap.get("wing"));
+      await getCurrentStaff(docSnap.get("wing"));
       docSnap = docSnap.get("visits");
       for (let visit of docSnap) {
         const staff = await (
@@ -32,28 +31,24 @@ export default function History({navigation}) {
         ).data();
         visit.staff = staff;
       }
-      setHistory(docSnap);
+      setHistory(docSnap);      
     }
 
-    async function getCurrentStaff() {
-      console.log("*******START**********")
-      const qry = query(collection(db, "staff"), where("onshift", "==", true));
+    async function getCurrentStaff(patientWing) {
+      const qry = await query(collection(db, "staff"), where("onshift", "==", true));
       
       const querySnapshot = await getDocs(qry);
-
-      
+      console.log(patientWing)
       
       querySnapshot.forEach((doc) => {
 
         if(patientWing == doc.data().wing){
           setCurrentStaff(doc.data())
         }
+        
       });
-      console.log("*******END**********")
-      console.log(history);
     }
     getHistory();
-    getCurrentStaff();
     
   }, []);
 
@@ -65,7 +60,7 @@ export default function History({navigation}) {
         Current Staff
       </Heading>
       <Center>
-        <Card 
+        { currentStaff ? <Card 
           style={{ height: 150, width: 300, padding: 10, marginLeft: 40 }}
           onPress={() => {
             navigation.push("Staff", { 
@@ -92,7 +87,7 @@ export default function History({navigation}) {
               <Text style={{ margin: 5 }}>{currentStaff.job}</Text>
             </VStack>
           </HStack>
-        </Card>
+        </Card> :  <Spinner size="lg" />}
       </Center>
       <Heading size="md" style={{ padding: 10 }}>
         Staff History
