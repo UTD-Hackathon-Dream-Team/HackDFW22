@@ -3,7 +3,7 @@ import { Card } from "react-native-paper";
 import { Avatar } from "native-base";
 import { FlatList } from "react-native";
 
-export default function StaffList({ history }) {
+export default function StaffList({ history, navigation }) {
   const LeftContent = (pic) => (
     <Avatar
       source={{
@@ -13,7 +13,20 @@ export default function StaffList({ history }) {
   );
 
   const renderItem = ({ item }) => (
-    <Card style={{ marginBottom: 20 }}>
+    <Card
+      style={{ marginBottom: 20 }}
+      onPress={() => {
+        console.log(item.staff);
+        navigation.push("Staff", { 
+          name: item.staff.name, 
+          job: item.staff.job,
+          status: item.staff.onshift, 
+          funfact: item.staff.funfact, 
+          image: item.staff.image, 
+          time: item.timein.seconds,  
+          });
+      }}
+    >
       <Card.Title
         title={item.staff.name}
         subtitle={item.timein.seconds}
