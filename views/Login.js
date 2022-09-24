@@ -1,13 +1,26 @@
 import React from "react";
 import { Button, Center, Container } from "native-base";
 import { View, TextInput, Text } from "react-native";
+import { query, where, collection, getDocs } from "firebase/firestore";
+import { db } from "../util/firebase";
 
 export default function Home({ navigation }) {
   const [name, onChangeName] = React.useState(null);
   const [dob, onChangeDOB] = React.useState("");
 
-  function login() {
+  async function login() {
     console.log(name, dob);
+    const patient = query(
+      collection(db, "patient"),
+      where("name", "==", name),
+      where("dob", "==", dob)
+    );
+    const querySnapshot = await getDocs(patient);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+    });
+
     // navigation.navigate("Root");
   }
 
