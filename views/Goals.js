@@ -1,43 +1,39 @@
 import React, { useState, useEffect } from "react";
 import DayGoals from "../components/DayGoals";
 import { StyleSheet } from "react-native";
-import { Heading, Text, View } from "native-base";
+import { Heading, View } from "native-base";
 import Expansion from "../components/Expansion";
 import { db } from "../util/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 const Goals = () => {
   var today = new Date();
-  today.setHours(0);
-  today.setMinutes(0);
-  today.setSeconds(0);
-  today.setMilliseconds(0);
+  today.setHours(0, 0, 0, 0);
   today = today.toJSON().slice(0, 10);
   const [yesterdays, setYesterdays] = useState([]);
   const [tomorrows, setTomorrows] = useState([]);
 
-  useEffect(() => {
+  useEffect(async () => {
     async function getGoals() {
       const docRef = doc(db, "patient", global.config.patientId);
+      let futures = new Set();
+      let past = new Set();
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         var patientGoals = await docSnap.data().goals;
         for (let index = 0; index < patientGoals.length; index++) {
           const obj = patientGoals[index];
           var goalDate = new Date(obj.date.seconds * 1000);
-          goalDate.setHours(0);
-          goalDate.setMinutes(0);
-          goalDate.setSeconds(0);
-          goalDate.setMilliseconds(0);
+          goalDate.setHours(0, 0, 0, 0);
           goalDate = goalDate.toJSON().slice(0, 10);
-          if (goalDate < today) {
-            setYesterdays([...new Set([...yesterdays, goalDate])]);
-          } else if (goalDate > today) {
-            setTomorrows([...new Set([...tomorrows, goalDate])]);
+          if (goalDate.valueOf() < today.valueOf()) {
+            past.add(goalDate);
+          } else if (goalDate.valueOf() > today.valueOf()) {
+            futures.add(goalDate);
           }
         }
-        console.log("Tomorrows");
-        console.log(tomorrows);
+        setTomorrows([...futures]);
+        setYesterdays([...past]);
       } else {
         console.log("No such document!");
       }
