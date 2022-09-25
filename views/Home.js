@@ -6,7 +6,10 @@ import {
   Heading,
   Badge,
   Flex,
+  Image,
+  Button,
 } from "native-base";
+import { Card } from "react-native-paper";
 import { Linking } from "react-native";
 import { db } from "../util/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -16,14 +19,15 @@ import { LinearGradient } from "expo-linear-gradient";
 
 export default function Home({ navigation }) {
   const [resources, setResources] = useState({});
-
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   useEffect(() => {
     async function getResources() {
       const docRef = doc(db, "patient", global.config.patientId);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         var results = await docSnap.data().information;
-        console.log(results);
+        // console.log(results);
         setResources(results);
       } else {
         // doc.data() will be undefined in this case
@@ -36,15 +40,13 @@ export default function Home({ navigation }) {
   return (
     <View p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
       <Heading my="2">Today's Goals</Heading>
-      <DayGoals today={new Date().toJSON().slice(0, 10)} />
+      <DayGoals today={today.toJSON().slice(0, 10)} />
       <Heading my="3">Information</Heading>
 
       <FlatList
         p="5"
         style={{
           backgroundColor: "#dcc6c4",
-          height: 200,
-          width: 300,
           flexGrow: 0,
         }}
         data={resources}
@@ -53,7 +55,7 @@ export default function Home({ navigation }) {
             <Flex direction="row">
               {!item.watched && <Badge colorScheme="error" variant="solid">NEW</Badge>}
               <Text
-                style={{ margin: 10, textDecorationLine: "underline" }}
+                style={{ margin: 5, textDecorationLine: "underline" }}
                 onPress={() => {
                   if (item.link) {
                     Linking.canOpenURL(item.link).then((supported) => {
@@ -74,6 +76,28 @@ export default function Home({ navigation }) {
           </View>
         )}
       />
+      <Heading my="3">Symptoms Tracking</Heading>
+      <Card style={{ backgroundColor: "#dcc6c4" }}>
+        <Card.Title
+          title="9/24 Report"
+          left={() => (
+            <Image
+              alt="Human body"
+              source={require("./body-example.png")}
+              size="sm"
+            />
+          )}
+        />
+        <Card.Content>
+          <Text>Doctors notes: Make sure your bookbag isn't too heavy</Text>
+        </Card.Content>
+      </Card>
+      <Button
+        onPress={() => navigation.navigate("Tracker")}
+        style={{ marginTop: 20 }}
+      >
+        Add New
+      </Button>
     </View>
   );
 }

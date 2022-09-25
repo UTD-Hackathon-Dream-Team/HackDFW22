@@ -1,35 +1,34 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { Avatar, FlatList } from "native-base";
+import { Avatar, FlatList, Heading } from "native-base";
 import { Card } from "react-native-paper";
-import { Timestamp } from "firebase/firestore";
 
 export default function Staff({ route }) {
   return (
-    <View p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
-      <Text
-        style={{
-          marginTop: 10,
-          alignSelf: "center",
-        }}
-      >
+    <View
+      p="3"
+      backgroundColor="#F5DCDA"
+      style={{ flex: 1, padding: 20, paddingTop: 5 }}
+    >
+      <Heading my="2" textAlign="center">
         {route.params.name}
-      </Text>
+      </Heading>
       <Avatar
         source={{
           uri: route.params.image,
         }}
         size="2xl"
-        style={{ marginTop: 10, alignSelf: "center" }}
+        style={{ alignSelf: "center" }}
       />
 
       <Text
         style={{
           marginTop: 10,
           alignSelf: "center",
+          fontSize: 20,
         }}
       >
-        {route.params.job}
+        Role: {route.params.job}
       </Text>
 
       {route.params.status ? (
@@ -39,6 +38,7 @@ export default function Staff({ route }) {
             backgroundColor: "#A4E28D",
             alignSelf: "center",
             paddingHorizontal: 10,
+            fontSize: 15,
           }}
         >
           Current
@@ -51,27 +51,40 @@ export default function Staff({ route }) {
           alignSelf: "center",
         }}
       >
-        {route.params.funfact}
+        Fun fact: {route.params.funfact}
       </Text>
-      <Text style={{ marginTop: 10 }}>Attending History</Text>
+      <Text style={{ marginTop: 10, fontSize: 20, fontWeight: "bold" }}>
+        Attending History
+      </Text>
 
       <FlatList
-        style={{ marginTop: 5 }}
+        style={{ margin: 5 }}
         data={route.params.history}
         renderItem={({ item }) => {
           return (
-            <Card>
-              <Text>from: {item.timein.toDate().toString()}</Text>
-              <Text>to: {item.timeout.toDate().toString()}</Text>
+            <Card style={{ padding: 15, backgroundColor: "#dcc6c4" }}>
+              <Text>from: {item.timein.toDate().toLocaleString()}</Text>
+              <Text>to: {item.timeout.toDate().toLocaleString()}</Text>
             </Card>
           );
         }}
       />
 
-      <Text style={{ marginTop: 10 }}>Procedures Performed</Text>
-      <Card style={{ marginTop: 5 }}>
-        <Card.Title title="Test Title" subtitle="Test Subtitle" />
-      </Card>
+      <Text style={{ marginTop: 10, fontSize: 20, fontWeight: "bold" }}>
+        Procedures Performed
+      </Text>
+      <FlatList
+        style={{ margin: 5 }}
+        data={route.params.procedures}
+        renderItem={({ item }) => {
+          return (
+            <Card style={{ padding: 15, backgroundColor: "#dcc6c4" }}>
+              <Text>{item.time.toDate().toLocaleString()}</Text>
+              <Text>{item.description}</Text>
+            </Card>
+          );
+        }}
+      />
     </View>
   );
 }

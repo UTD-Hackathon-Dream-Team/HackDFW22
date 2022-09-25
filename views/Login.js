@@ -30,7 +30,7 @@ export default function Home({ navigation }) {
   const [dob, onChangeDOB] = React.useState("");
 
   async function login() {
-    console.log(name, dob);
+    // console.log(name, dob);
     const patient = query(
       collection(db, "patient"),
       where("name", "==", name),
@@ -71,8 +71,9 @@ export default function Home({ navigation }) {
               }}
             >
               <Container>
-              <Text my="3" fontSize="3xl" style={styles.desc}>Login
-            </Text>
+                <Text my="3" fontSize="3xl" style={styles.desc}>
+                  Login
+                </Text>
                 <Text style={{ fontSize: 20, marginBottom: 10 }}>Name</Text>
                 <TextInput
                   style={{

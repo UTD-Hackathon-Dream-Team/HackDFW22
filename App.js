@@ -8,10 +8,12 @@ import "./global";
 import Staff from "./views/Staff";
 import Story1 from "./views/Story1";
 import Story2 from "./views/Story2";
+import Tracker from "./views/NewTracker";
+import { LogBox } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
-console.disableYellowBox = true;
+LogBox.ignoreAllLogs();
 
 export default function App() {
   return (
@@ -24,9 +26,34 @@ export default function App() {
             component={LoginScreen}
           />
           <Stack.Screen name="Root" component={BottomTabNavigator} />
-          <Stack.Screen name="Staff" component={Staff} />
-          <Stack.Screen name="What is flu?" component={Story1} />
-          <Stack.Screen name="What is virus?" component={Story2} />
+          <Stack.Screen
+            options={{
+              headerTitleAlign: "center",
+            }}
+            name="Staff"
+            component={Staff}
+          />
+          <Stack.Screen
+            options={{
+              headerTitleAlign: "center",
+            }}
+            name="What is flu?"
+            component={Story1}
+          />
+          <Stack.Screen
+            options={{
+              headerTitleAlign: "center",
+            }}
+            name="What is virus?"
+            component={Story2}
+          />
+          <Stack.Screen
+            options={{
+              headerTitleAlign: "center",
+            }}
+            name="Tracker"
+            component={Tracker}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
