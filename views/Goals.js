@@ -39,11 +39,8 @@ const Goals = () => {
 
   return (
     <View p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
-
         <Heading my="2">Today</Heading>
         <DayGoals today={today}></DayGoals>
-
-
       <Heading my="2">Upcoming Goals</Heading>
         {tomorrows.map((key, i) => (
           <Expansion 
@@ -52,7 +49,6 @@ const Goals = () => {
             child={() => <DayGoals today={key}></DayGoals>}
           ></Expansion>
         ))}
-
       <Heading my="2">Past Goals</Heading>
         {yesterdays.map((key, i) => (
           <Expansion
@@ -64,18 +60,5 @@ const Goals = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  title: {
-    fontWeight: "bold",
-    fontSize: 30,
-    textAlign: "center",
-  },
-  container: {
-    paddingLeft: 5,
-    paddingRight: 5,
-    marginTop: 5,
-  },
-});
 
 export default Goals;

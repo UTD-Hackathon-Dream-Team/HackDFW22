@@ -11,7 +11,6 @@ import {
   Text,
 } from "native-base";
 import Swiper from "react-native-swiper/src";
-import { LinearGradient } from "expo-linear-gradient";
 
 var styles = {
   slides: {
@@ -23,13 +22,7 @@ var styles = {
     textAlign: "center",
     fontWeight: "bold",
   },
-  bg: {
-    linearGradient: {
-      colors: ["#f3f0e8", "#cfc3a6"],
-      start: [0.5, 0.5],
-      end: [1, 1],
-    },
-  },
+  
 };
 
 export default function Home({ navigation }) {
@@ -52,16 +45,16 @@ export default function Home({ navigation }) {
 
   return (
     <NativeBaseProvider>
-      <Box bg={styles.bg} style={{ flex: 1 }}>
+      <Box backgroundColor="#F5DCDA" style={{ flex: 1 }}>
         <Swiper showsButtons loop={false}>
           <Box style={styles.slides}>
             {/* <Image source={} style={{ width: 180, height: 200 }}></Image> */}
             <Text m="7" fontSize="4xl" style={styles.desc}>
               Welcome to Care Companion!
             </Text>
-            <Button shadow={2} onPress={() => navigation.navigate("Root")}>
+            {/* <Button shadow={2} onPress={() => navigation.navigate("Root")}>
               lemme in
-            </Button>
+            </Button> */}
           </Box>
           <Box style={styles.slides}>
             {/* <Image source={} style={{ width: 120, height: 120 }}></Image> */}

@@ -51,7 +51,7 @@ export default function Home({ navigation }) {
         renderItem={({ item }) => (
           <View>
             <Flex direction="row">
-              {!item.watched && <Badge colorScheme="success">NEW</Badge>}
+              {!item.watched && <Badge colorScheme="error" variant="solid">NEW</Badge>}
               <Text
                 style={{ margin: 10, textDecorationLine: "underline" }}
                 onPress={() => {
