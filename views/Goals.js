@@ -13,7 +13,7 @@ const Goals = () => {
   const [yesterdays, setYesterdays] = useState([]);
   const [tomorrows, setTomorrows] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
     async function getGoals() {
       const docRef = doc(db, "patient", global.config.patientId);
       let futures = new Set();
