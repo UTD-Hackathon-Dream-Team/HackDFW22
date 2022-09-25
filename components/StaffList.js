@@ -33,7 +33,7 @@ export default function StaffList({ history, procedures, navigation }) {
     >
       <Card.Title
         title={item.staff.name}
-        subtitle={item.timein.toDate().toString()}
+        subtitle={item.timein.toDate().toLocaleString()}
         left={() => LeftContent(item.staff.image)}
       />
     </Card>

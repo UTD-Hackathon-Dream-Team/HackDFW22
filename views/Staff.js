@@ -61,8 +61,8 @@ export default function Staff({ route }) {
         renderItem={({ item }) => {
           return (
             <Card style={{ padding: 8 }}>
-              <Text>from: {item.timein.toDate().toString()}</Text>
-              <Text>to: {item.timeout.toDate().toString()}</Text>
+              <Text>from: {item.timein.toDate().toLocaleString()}</Text>
+              <Text>to: {item.timeout.toDate().toLocaleString()}</Text>
             </Card>
           );
         }}
@@ -75,7 +75,7 @@ export default function Staff({ route }) {
         renderItem={({ item }) => {
           return (
             <Card style={{ padding: 8 }}>
-              <Text>{item.time.toDate().toString()}</Text>
+              <Text>{item.time.toDate().toLocaleString()}</Text>
               <Text>{item.description}</Text>
             </Card>
           );
