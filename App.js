@@ -8,6 +8,7 @@ import "./global";
 import Staff from "./views/Staff";
 import Story1 from "./views/Story1";
 import Story2 from "./views/Story2";
+import Tracker from "./views/NewTracker";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,13 @@ export default function App() {
             }}
             name="What is virus?"
             component={Story2}
+          />
+          <Stack.Screen
+            options={{
+              headerTitleAlign: "center",
+            }}
+            name="Tracker"
+            component={Tracker}
           />
         </Stack.Navigator>
       </NavigationContainer>

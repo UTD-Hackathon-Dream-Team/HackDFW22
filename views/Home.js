@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, Heading, Badge, Flex } from "native-base";
+import {
+  View,
+  Text,
+  FlatList,
+  Heading,
+  Badge,
+  Flex,
+  Button,
+} from "native-base";
 import { Linking } from "react-native";
 import { db } from "../util/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -36,8 +44,6 @@ export default function Home({ navigation }) {
         p="5"
         style={{
           backgroundColor: "#dcc6c4",
-          height: 200,
-          width: 300,
           flexGrow: 0,
         }}
         data={resources}
@@ -46,7 +52,7 @@ export default function Home({ navigation }) {
             <Flex direction="row">
               {!item.watched && <Badge colorScheme="success">NEW</Badge>}
               <Text
-                style={{ margin: 10, textDecorationLine: "underline" }}
+                style={{ margin: 5, textDecorationLine: "underline" }}
                 onPress={() => {
                   if (item.link) {
                     Linking.canOpenURL(item.link).then((supported) => {
@@ -67,6 +73,8 @@ export default function Home({ navigation }) {
           </View>
         )}
       />
+      <Heading my="3">Symptoms Tracking</Heading>
+      <Button onPress={() => navigation.navigate("Tracker")}>Add New</Button>
     </View>
   );
 }
