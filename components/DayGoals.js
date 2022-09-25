@@ -28,13 +28,13 @@ const DayGoals = ({ today }) => {
   }, []);
 
   async function completeGoal(goalID) {
-    console.log("Updating", goalID);
+    // console.log("Updating", goalID);
     const docRef = doc(db, "patient", global.config.patientId);
     const docSnap = await getDoc(docRef);
     var oldGoals = await docSnap.data().goals;
     var objIndex = oldGoals.findIndex((obj) => obj.id == goalID);
-    console.log(objIndex);
-    console.log(oldGoals[objIndex]);
+    // console.log(objIndex);
+    // console.log(oldGoals[objIndex]);
     oldGoals[objIndex].done = !oldGoals[objIndex].done;
     await updateDoc(docRef, {
       goals: oldGoals,

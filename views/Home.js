@@ -19,14 +19,15 @@ import { LinearGradient } from "expo-linear-gradient";
 
 export default function Home({ navigation }) {
   const [resources, setResources] = useState({});
-
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   useEffect(() => {
     async function getResources() {
       const docRef = doc(db, "patient", global.config.patientId);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         var results = await docSnap.data().information;
-        console.log(results);
+        // console.log(results);
         setResources(results);
       } else {
         // doc.data() will be undefined in this case
@@ -39,7 +40,7 @@ export default function Home({ navigation }) {
   return (
     <View p="3" backgroundColor="#F5DCDA" style={{ flex: 1 }}>
       <Heading my="2">Today's Goals</Heading>
-      <DayGoals today={new Date().toJSON().slice(0, 10)} />
+      <DayGoals today={today.toJSON().slice(0, 10)} />
       <Heading my="3">Information</Heading>
 
       <FlatList
