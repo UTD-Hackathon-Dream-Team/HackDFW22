@@ -37,7 +37,7 @@ export default function Home({ navigation }) {
         style={{
           backgroundColor: "#dcc6c4",
           height: 200,
-          width: 275,
+          width: 300,
           flexGrow: 0,
         }}
         data={resources}

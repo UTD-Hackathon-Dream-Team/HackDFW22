@@ -24,6 +24,7 @@ import StaffList from "../components/StaffList";
 export default function History({ navigation }) {
   const [history, setHistory] = useState(null);
   const [currentStaff, setCurrentStaff] = useState(null);
+  const [procedures, setProcedures] = useState(null);
 
   useEffect(() => {
     async function getHistory() {
@@ -39,6 +40,13 @@ export default function History({ navigation }) {
       }
       setHistory(docSnap);
     }
+    async function getProcedures() {
+      const docRef = doc(db, "patient", global.config.patientId);
+      let docSnap = await getDoc(docRef);
+      docSnap = docSnap.get("procedure");
+
+      setProcedures(docSnap);
+    }
 
     async function getCurrentStaff(patientWing) {
       const qry = await query(
@@ -47,7 +55,7 @@ export default function History({ navigation }) {
       );
 
       const querySnapshot = await getDocs(qry);
-      // console.log(patientWing)
+      console.log(patientWing);
 
       querySnapshot.forEach((doc) => {
         if (patientWing == doc.data().wing) {
@@ -56,6 +64,7 @@ export default function History({ navigation }) {
       });
     }
     getHistory();
+    getProcedures();
   }, []);
 
   return (
@@ -72,6 +81,9 @@ export default function History({ navigation }) {
                 status: currentStaff.onshift,
                 funfact: currentStaff.funfact,
                 image: currentStaff.image,
+                procedures: procedures.filter(function (entry) {
+                  return entry.staffId == currentStaff.staffId;
+                }),
                 history: history.filter(function (entry) {
                   return entry.staffId == currentStaff.staffId;
                 }),
@@ -97,9 +109,15 @@ export default function History({ navigation }) {
           <Spinner size="lg" />
         )}
       </Center>
-      <Heading my="2">Staff History</Heading>
+      <Heading size="md" style={{ padding: 10 }}>
+        Staff History
+      </Heading>
       {history ? (
-        <StaffList history={history} navigation={navigation} />
+        <StaffList
+          procedures={procedures}
+          history={history}
+          navigation={navigation}
+        />
       ) : (
         <Spinner size="lg" />
       )}

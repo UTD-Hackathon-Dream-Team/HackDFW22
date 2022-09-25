@@ -18,6 +18,7 @@ export default function BottomTabNavigator({ navigation }) {
         name="Home"
         component={HomeScreen}
         options={{
+          headerTitleAlign: "center",
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
             <Feather name="home" size={24} color="black" />
@@ -28,6 +29,7 @@ export default function BottomTabNavigator({ navigation }) {
         name="Staff"
         component={HistoryScreen}
         options={{
+          headerTitleAlign: "center",
           tabBarLabel: "Staff",
           tabBarIcon: ({ color, size }) => (
             <Feather name="list" size={24} color="black" />
@@ -38,6 +40,7 @@ export default function BottomTabNavigator({ navigation }) {
         name="Goals"
         component={GoalScreen}
         options={{
+          headerTitleAlign: "center",
           tabBarLabel: "Goals",
           tabBarIcon: ({ color, size }) => (
             <Feather name="calendar" size={24} color="black" />

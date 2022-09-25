@@ -56,22 +56,31 @@ export default function Staff({ route }) {
       <Text style={{ marginTop: 10 }}>Attending History</Text>
 
       <FlatList
-        style={{ marginTop: 5 }}
+        style={{ margin: 5 }}
         data={route.params.history}
         renderItem={({ item }) => {
           return (
-            <Card>
-              <Text>from: {item.timein.toDate().toString()}</Text>
-              <Text>to: {item.timeout.toDate().toString()}</Text>
+            <Card style={{ padding: 8 }}>
+              <Text>from: {item.timein.toDate().toLocaleString()}</Text>
+              <Text>to: {item.timeout.toDate().toLocaleString()}</Text>
             </Card>
           );
         }}
       />
 
       <Text style={{ marginTop: 10 }}>Procedures Performed</Text>
-      <Card style={{ marginTop: 5 }}>
-        <Card.Title title="Test Title" subtitle="Test Subtitle" />
-      </Card>
+      <FlatList
+        style={{ margin: 5 }}
+        data={route.params.procedures}
+        renderItem={({ item }) => {
+          return (
+            <Card style={{ padding: 8 }}>
+              <Text>{item.time.toDate().toLocaleString()}</Text>
+              <Text>{item.description}</Text>
+            </Card>
+          );
+        }}
+      />
     </View>
   );
 }

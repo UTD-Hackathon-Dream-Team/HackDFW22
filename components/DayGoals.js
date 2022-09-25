@@ -53,7 +53,7 @@ const DayGoals = ({ today }) => {
       style={{
         backgroundColor: "#dcc6c4",
         height: 100,
-        width: 275,
+        width: 300,
         flexGrow: 0,
       }}
       renderItem={({ item }) => (
@@ -62,7 +62,8 @@ const DayGoals = ({ today }) => {
             <Icon
               name={item.done ? "check-circle" : "radio-button-unchecked"}
               size={20}
-              color="#666666"
+              color={item.done ? "green" : "grey"}
+              // color="#666666"
               onPress={() => completeGoal(item.id)}
             />
             <Text mb="2" mx="1">
