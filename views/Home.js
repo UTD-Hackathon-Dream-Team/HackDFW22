@@ -6,8 +6,10 @@ import {
   Heading,
   Badge,
   Flex,
+  Image,
   Button,
 } from "native-base";
+import { Card } from "react-native-paper";
 import { Linking } from "react-native";
 import { db } from "../util/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -74,7 +76,27 @@ export default function Home({ navigation }) {
         )}
       />
       <Heading my="3">Symptoms Tracking</Heading>
-      <Button onPress={() => navigation.navigate("Tracker")}>Add New</Button>
+      <Card style={{ backgroundColor: "#dcc6c4" }}>
+        <Card.Title
+          title="9/24 Report"
+          left={() => (
+            <Image
+              alt="Human body"
+              source={require("./body-example.png")}
+              size="sm"
+            />
+          )}
+        />
+        <Card.Content>
+          <Text>Doctors notes: Make sure your bookbag isn't too heavy</Text>
+        </Card.Content>
+      </Card>
+      <Button
+        onPress={() => navigation.navigate("Tracker")}
+        style={{ marginTop: 20 }}
+      >
+        Add New
+      </Button>
     </View>
   );
 }

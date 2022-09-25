@@ -14,7 +14,7 @@ export default function StaffList({ history, procedures, navigation }) {
 
   const renderItem = ({ item }) => (
     <Card
-      style={{ marginBottom: 20 }}
+      style={{ marginBottom: 20, backgroundColor: "#dcc6c4" }}
       onPress={() => {
         navigation.push("Staff", {
           name: item.staff.name,
@@ -44,7 +44,7 @@ export default function StaffList({ history, procedures, navigation }) {
       data={history}
       renderItem={renderItem}
       keyExtractor={(item) => item.staffId}
-      style={{ width: "100%", }}
+      style={{ width: "100%" }}
     />
   );
 }
