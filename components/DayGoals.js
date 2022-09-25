@@ -52,8 +52,6 @@ const DayGoals = ({ today }) => {
       data={goals}
       style={{
         backgroundColor: "#dcc6c4",
-        height: 100,
-        width: 300,
         flexGrow: 0,
       }}
       renderItem={({ item }) => (

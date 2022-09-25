@@ -8,6 +8,7 @@ import "./global";
 import Staff from "./views/Staff";
 import Story1 from "./views/Story1";
 import Story2 from "./views/Story2";
+import Tracker from "./views/NewTracker";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,7 @@ export default function App() {
           <Stack.Screen name="Staff" component={Staff} />
           <Stack.Screen name="What is flu?" component={Story1} />
           <Stack.Screen name="What is virus?" component={Story2} />
+          <Stack.Screen name="Tracker" component={Tracker} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
