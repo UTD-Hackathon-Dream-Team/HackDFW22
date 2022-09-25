@@ -62,7 +62,6 @@ const Goals = () => {
           ></Expansion>
         ))}
       </View>
-    </View>
   );
 };
 
