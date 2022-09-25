@@ -24,9 +24,27 @@ export default function App() {
             component={LoginScreen}
           />
           <Stack.Screen name="Root" component={BottomTabNavigator} />
-          <Stack.Screen name="Staff" component={Staff} />
-          <Stack.Screen name="What is flu?" component={Story1} />
-          <Stack.Screen name="What is virus?" component={Story2} />
+          <Stack.Screen
+            options={{
+              headerTitleAlign: "center",
+            }}
+            name="Staff"
+            component={Staff}
+          />
+          <Stack.Screen
+            options={{
+              headerTitleAlign: "center",
+            }}
+            name="What is flu?"
+            component={Story1}
+          />
+          <Stack.Screen
+            options={{
+              headerTitleAlign: "center",
+            }}
+            name="What is virus?"
+            component={Story2}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
