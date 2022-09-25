@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  Heading,
-  Badge,
-  Flex,
-} from "native-base";
+import { View, Text, FlatList, Heading, Badge, Flex } from "native-base";
 import { Linking } from "react-native";
 import { db } from "../util/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -23,7 +16,7 @@ export default function Home({ navigation }) {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         var results = await docSnap.data().information;
-        console.log(results);
+        // console.log(results);
         setResources(results);
       } else {
         // doc.data() will be undefined in this case

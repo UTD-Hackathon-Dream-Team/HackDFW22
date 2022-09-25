@@ -28,13 +28,13 @@ const DayGoals = ({ today }) => {
   }, []);
 
   async function completeGoal(goalID) {
-    console.log("Updating", goalID);
+    // console.log("Updating", goalID);
     const docRef = doc(db, "patient", global.config.patientId);
     const docSnap = await getDoc(docRef);
     var oldGoals = await docSnap.data().goals;
     var objIndex = oldGoals.findIndex((obj) => obj.id == goalID);
-    console.log(objIndex);
-    console.log(oldGoals[objIndex]);
+    // console.log(objIndex);
+    // console.log(oldGoals[objIndex]);
     oldGoals[objIndex].done = !oldGoals[objIndex].done;
     await updateDoc(docRef, {
       goals: oldGoals,
@@ -47,9 +47,15 @@ const DayGoals = ({ today }) => {
   }
 
   return (
-    <FlatList p="5"
+    <FlatList
+      p="5"
       data={goals}
-      style={{ backgroundColor: "#dcc6c4", height: 100, width: 275, flexGrow: 0 }}
+      style={{
+        backgroundColor: "#dcc6c4",
+        height: 100,
+        width: 275,
+        flexGrow: 0,
+      }}
       renderItem={({ item }) => (
         <View>
           <Flex direction="row">
@@ -59,7 +65,9 @@ const DayGoals = ({ today }) => {
               color="#666666"
               onPress={() => completeGoal(item.id)}
             />
-            <Text mb="2" mx="1">{item.goal}</Text>
+            <Text mb="2" mx="1">
+              {item.goal}
+            </Text>
           </Flex>
         </View>
       )}
