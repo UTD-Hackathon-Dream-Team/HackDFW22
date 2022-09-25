@@ -44,7 +44,7 @@ export default function StaffList({ history, procedures, navigation }) {
       data={history}
       renderItem={renderItem}
       keyExtractor={(item) => item.staffId}
-      style={{ width: "100%", marginLeft: 30 }}
+      style={{ width: "100%", }}
     />
   );
 }

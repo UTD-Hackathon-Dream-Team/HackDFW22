@@ -73,7 +73,7 @@ export default function History({ navigation }) {
       <Center>
         {currentStaff ? (
           <Card
-            style={{ height: 150, width: 300, padding: 10, marginLeft: 40 }}
+            style={{ height: 150, width: 300, padding: 10,}}
             onPress={() => {
               navigation.push("Staff", {
                 name: currentStaff.name,

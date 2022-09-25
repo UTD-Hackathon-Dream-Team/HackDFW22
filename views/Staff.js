@@ -56,11 +56,11 @@ export default function Staff({ route }) {
       <Text style={{ marginTop: 10 }}>Attending History</Text>
 
       <FlatList
-        style={{ marginTop: 5 }}
+        style={{ margin: 5 }}
         data={route.params.history}
         renderItem={({ item }) => {
           return (
-            <Card>
+            <Card style={{ padding: 8 }}>
               <Text>from: {item.timein.toDate().toString()}</Text>
               <Text>to: {item.timeout.toDate().toString()}</Text>
             </Card>
@@ -70,11 +70,11 @@ export default function Staff({ route }) {
 
       <Text style={{ marginTop: 10 }}>Procedures Performed</Text>
       <FlatList
-        style={{ marginTop: 5 }}
+        style={{ margin: 5 }}
         data={route.params.procedures}
         renderItem={({ item }) => {
           return (
-            <Card>
+            <Card style={{ padding: 8 }}>
               <Text>{item.time.toDate().toString()}</Text>
               <Text>{item.description}</Text>
             </Card>
