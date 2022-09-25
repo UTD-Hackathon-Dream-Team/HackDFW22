@@ -9,10 +9,11 @@ import Staff from "./views/Staff";
 import Story1 from "./views/Story1";
 import Story2 from "./views/Story2";
 import Tracker from "./views/NewTracker";
+import { LogBox } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
-console.disableYellowBox = true;
+LogBox.ignoreAllLogs();
 
 export default function App() {
   return (
